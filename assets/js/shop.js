@@ -1,51 +1,47 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Realiza la solicitud a la API de categorías
     fetch("http://127.0.0.1:8000/api/categories")
         .then(response => response.json())
         .then(categories => {
-            // Renderiza las categorías en el acordeón y obtiene productos de la primera subcategoría
             renderAccordion(categories);
             addSubcategoryClickEvent();
         })
         .catch(error => console.error('Error al obtener categorías:', error));
+
+
+
+    function renderAccordion(categories) {
+        const accordion = document.getElementById('accordion');
+
+        if (categories.length > 0 && categories[0].subcategories.length > 0) {
+            const firstCategory = categories[0];
+            const firstSubcategory = firstCategory.subcategories[0];
+
+            fetch(`http://127.0.0.1:8000/api/products/subcategorie/${firstSubcategory.id}`)
+                .then(response => response.json())
+                .then(products => {
+                    renderAccordionItems(categories);
+
+                    renderProducts(products);
+
+                    addSubcategoryClickEvent();
+                })
+                .catch(error => console.error('Error al obtener productos:', error));
+        } else {
+            const productsContainer = document.getElementById('productsContainer');
+            productsContainer.innerHTML = "";
+            renderAccordionItems(categories);
+        }
+    }
+
+
 });
 
-function renderAccordion(categories) {
-    const accordion = document.getElementById('accordion');
 
-    // Verifica si hay al menos una categoría y una subcategoría
-    if (categories.length > 0 && categories[0].subcategories.length > 0) {
-        const firstCategory = categories[0];
-        const firstSubcategory = firstCategory.subcategories[0];
-
-        // Realiza la solicitud a la API de productos de la primera subcategoría
-        fetch(`http://127.0.0.1:8000/api/products/subcategorie/${firstSubcategory.id}`)
-            .then(response => response.json())
-            .then(products => {
-                // Renderiza las categorías en el acordeón
-                renderAccordionItems(categories);
-
-                // Renderiza los productos en la sección de productos
-                renderProducts(products);
-
-                // Agrega un evento de clic a los enlaces de subcategorías
-                addSubcategoryClickEvent();
-            })
-            .catch(error => console.error('Error al obtener productos:', error));
-    } else {
-        // Si no hay categorías o subcategorías, solo renderiza las categorías en el acordeón
-        const productsContainer = document.getElementById('productsContainer');
-        productsContainer.innerHTML = "";
-        renderAccordionItems(categories);
-    }
-}
 
 function renderAccordionItems(categories) {
     categories.forEach(category => {
-        // Genera un ID único para cada categoría y su contenido colapsable
         const categoryID = `category-${category.id}`;
 
-        // Agrega la estructura HTML del acordeón para cada categoría
         accordion.innerHTML += `
             <div class="accordion-item">
                 <h2 class="accordion-header" id="${categoryID}">
@@ -76,21 +72,16 @@ function renderSubcategories(subcategories) {
 }
 
 function addSubcategoryClickEvent() {
-    // Agrega un evento de clic a los enlaces de subcategorías con la clase "href-sub-categories"
     const subcategoryLinks = document.querySelectorAll('.href-sub-categories');
     subcategoryLinks.forEach(link => {
         link.addEventListener('click', function (event) {
             event.preventDefault();
 
-            // Obtiene la ID de la subcategoría desde el enlace
-            // console.log(link.dataset.subcategoryid)
             const subcategoryId = link.dataset.subcategoryid;
 
-            // Realiza la solicitud a la API de productos de la subcategoría seleccionada
             fetch(`http://127.0.0.1:8000/api/products/subcategorie/${subcategoryId}`)
                 .then(response => response.json())
                 .then(products => {
-                    // Renderiza los nuevos productos en la sección principal
                     renderProducts(products);
                 })
                 .catch(error => console.error('Error al obtener productos:', error));
@@ -100,11 +91,9 @@ function addSubcategoryClickEvent() {
 
 function renderProducts(products) {
     console.log('ye');
-    // Renderiza los productos en la sección principal (ajusta según tu estructura HTML)
     const productsContainer = document.getElementById('productsContainer');
     productsContainer.innerHTML = "";
 
-    // Verifica si products es un array antes de intentar iterar sobre él
     if (Array.isArray(products)) {
         products.forEach(product => {
             const productElement = document.createElement('div');
@@ -117,8 +106,8 @@ function renderProducts(products) {
                         <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                             <ul class="list-unstyled">
                                 <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
-                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2" TARGET="_BLANK"  href="shop-single.html?product_id=${product.id}"  ><i class="far fa-eye"></i></a></li>
+                                <li><a class="btn btn-success text-white mt-2"><i productPicture="${product.picture}" productId="${product.id}" productName="${product.name}" productPrice="${product.price}" id="add-to-cart"  class="fas fa-cart-plus"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -142,8 +131,48 @@ function renderProducts(products) {
             `;
             productsContainer.appendChild(productElement);
         });
+
+        const addToCartLinks = document.querySelectorAll('#add-to-cart');
+        addToCartLinks.forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+
+                const productId = link.getAttribute('productId');
+                const productName = link.getAttribute('productName');
+                const productPrice = parseFloat(link.getAttribute('productPrice'));
+                const productPicture = "http://localhost/masomy/public/" + link.getAttribute('productPicture');
+
+                const product = { id: productId, name: productName, price: productPrice, picture: productPicture };
+
+                addToCart(product);
+            });
+        });
     } else {
-        // Manejar el caso donde no hay productos disponibles
         productsContainer.innerHTML = "<p>No hay productos disponibles en esta subcategoría.</p>";
     }
+}
+
+
+function addToCart(product) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const existingProduct = cart.find(item => item.id === product.id);
+
+    if (existingProduct) {
+        existingProduct.quantity += 1;
+    } else {
+        cart.push({ id: product.id, name: product.name, price: product.price, quantity: 1, picture: product.picture });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+
+    updateCartView();
+}
+
+// Agrega un evento de clic al enlace "add-to-cart"
+
+
+// Función para actualizar la visualización del carrito (puedes personalizar según tus necesidades)
+function updateCartView() {
 }

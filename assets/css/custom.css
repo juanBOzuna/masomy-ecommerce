@@ -1,3 +1,22 @@
 /*
 Custom Css
 */
+
+@keyframes cartButtonAnimation {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+
+  
+  .cart-added {
+    animation: cartButtonAnimation 0.5s ease-in-out;
+    color: red; /* Cambia el color según tus preferencias */
+  }
