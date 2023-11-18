@@ -107,14 +107,14 @@ function renderProducts(products) {
                             <ul class="list-unstyled">
                                 <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
                                 <li><a class="btn btn-success text-white mt-2" TARGET="_BLANK"  href="shop-single.html?product_id=${product.id}"  ><i class="far fa-eye"></i></a></li>
-                                <li><a class="btn btn-success text-white mt-2"><i productPicture="${product.picture}" productId="${product.id}" productName="${product.name}" productPrice="${product.price}" id="add-to-cart"  class="fas fa-cart-plus"></i></a></li>
+                                <li id="add-to-cart" productPicture="${product.picture}" productId="${product.id}" productName="${product.name}" productPrice="${product.price}"  ><a class="btn btn-success text-white mt-2"><i  class="fas fa-cart-plus"></i></a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="card-body">
                         <a href="shop-single.html" class="h3 text-decoration-none">${product.name}</a>
                         <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                            <li>${product.stock}</li>
+                            <li>${product.description}</li>
                             <li class="pt-2">
                                 <!-- Puedes agregar más detalles aquí -->
                             </li>
@@ -154,25 +154,32 @@ function renderProducts(products) {
 
 
 function addToCart(product) {
+    console.log('last yes')
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
     const existingProduct = cart.find(item => item.id === product.id);
 
     if (existingProduct) {
         existingProduct.quantity += 1;
+        console.log('yes')
     } else {
+        console.log('no yes')
         cart.push({ id: product.id, name: product.name, price: product.price, quantity: 1, picture: product.picture });
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
 
+    const cartButton = document.getElementById('btn-view-cart');
+    cartButton.classList.add('cart-added');
+
+    setTimeout(() => {
+        cartButton.classList.remove('cart-added');
+
+    }, 100);
+
 
     updateCartView();
 }
 
-// Agrega un evento de clic al enlace "add-to-cart"
-
-
-// Función para actualizar la visualización del carrito (puedes personalizar según tus necesidades)
 function updateCartView() {
 }

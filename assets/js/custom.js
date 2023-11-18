@@ -99,9 +99,11 @@ document.addEventListener('DOMContentLoaded', function () {
         redirect: 'follow'
     };
 
+    
     fetch("http://127.0.0.1:8000/api/products/find/top_rated", requestOptions)
         .then(response => response.json())
         .then(products => {
+
             const productContainer = document.getElementById('productContainer');
 
             products.forEach(product => {
@@ -140,8 +142,6 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => console.log('error', error));
 
-    // Función para generar el HTML de las estrellas
-    // Función para generar el HTML de las estrellas
     // const generateStars = (rating) => {
     //     const fullStars = Math.floor(rating);
     //     const halfStar = rating - fullStars >= 0.5 ? 1 : 0;

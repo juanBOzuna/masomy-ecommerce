@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Selecciona el contenedor donde se mostrarán los productos
     const cartContainer = document.getElementById('cart-container');
-    const emptyCartMessage = document.getElementById('empty-cart-message');
+    let emptyCartMessage = document.getElementById('empty-cart-message');
     // Itera sobre los productos y crea elementos para mostrarlos en la página
     renderProducts();
 
@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function renderProducts() {
         // console.log(cartProducts[0].quantity)
         cartContainer.innerHTML = ' <p id="empty-cart-message" class="text-center">El carrito está vacío</p>';
+        emptyCartMessage = document.getElementById('empty-cart-message');
         // alert(cartProducts.length)
         if (cartProducts.length != 0) {
             console.log(cartProducts.length)
@@ -90,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const productCard = createProductCard(product);
                 cartContainer.appendChild(productCard);
             });
-            emptyCartMessage.style.display = 'none';
+            emptyCartMessage.style.display = "none";
             document.querySelector("#btn-realizar-pago").style.display = "block";
         } else {
             document.querySelector("#btn-realizar-pago").style.display = "none";
