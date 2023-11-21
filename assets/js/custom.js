@@ -1,87 +1,8 @@
+import { serverUrl } from './config.js';
+
+var formatter = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP',minimumFractionDigits: 0  });
+
 document.addEventListener('DOMContentLoaded', function () {
-    // Hacer la solicitud a la API
-    // fetch('http://masomy-admin.test/api/products/find/top_rated')
-    //     .then(response => response.json())
-    //     .then(products => {
-    //         // Renderizar los productos en el contenedor
-    //         const productContainer = document.getElementById('productContainer');
-
-    //         products.forEach(product => {
-    //             const productCard = `
-    //                 <div class="col-12 col-md-4 mb-4">
-    //                     <div class="card h-100">
-    //                         <a href="shop-single.html">
-    //                             <img src="${product.picture}" class="card-img-top" alt="${product.name}">
-    //                         </a>
-    //                         <div class="card-body">
-    //                             <ul class="list-unstyled d-flex justify-content-between">
-    //                                 <li>
-    //                                     <i class="text-warning fa fa-star"></i>
-    //                                     <i class="text-warning fa fa-star"></i>
-    //                                     <i class="text-warning fa fa-star"></i>
-    //                                     <i class="text-muted fa fa-star"></i>
-    //                                     <i class="text-muted fa fa-star"></i>
-    //                                 </li>
-    //                                 <li class="text-muted text-right">$${product.price.toFixed(2)}</li>
-    //                             </ul>
-    //                             <a href="shop-single.html" class="h2 text-decoration-none text-dark">${product.name}</a>
-    //                             <p class="card-text">${product.description}</p>
-    //                             <p class="text-muted">Reviews (24)</p>
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //             `;
-
-    //             productContainer.innerHTML += productCard;
-    //         });
-    //     })
-    //     .catch(error => console.error('Error fetching products:', error));
-
-    //     var requestOptions = {
-    //         method: 'GET',
-    //         redirect: 'follow'
-    //     };
-
-    //     fetch("http://masomy-admin.test/api/products/find/top_rated", requestOptions)
-    //         .then(response => response.text())
-    //         .then(productsR => {
-    //             // Renderizar los productos en el contenedor
-    //             var products = JSON.parse(productsR)
-    //             const productContainer = document.getElementById('productContainer');
-
-    //             products.forEach(product => {
-    //                 const productCard = `
-    //                     <div class="col-12 col-md-4 mb-4">
-    //                         <div class="card h-100">
-    //                             <a href="shop-single.html">
-    //                                 <img src="${product.picture}" class="card-img-top" alt="${product.name}">
-    //                             </a>
-    //                             <div class="card-body">
-    //                                 <ul class="list-unstyled d-flex justify-content-between">
-    //                                     <li>
-    //                                         <i class="text-warning fa fa-star"></i>
-    //                                         <i class="text-warning fa fa-star"></i>
-    //                                         <i class="text-warning fa fa-star"></i>
-    //                                         <i class="text-muted fa fa-star"></i>
-    //                                         <i class="text-muted fa fa-star"></i>
-    //                                     </li>
-    //                                     <li class="text-muted text-right">$${product.price.toFixed(2)}</li>
-    //                                 </ul>
-    //                                 <a href="shop-single.html" class="h2 text-decoration-none text-dark">${product.name}</a>
-    //                                 <p class="card-text">${product.description}</p>
-    //                                 <p class="text-muted">Reviews (24)</p>
-    //                             </div>
-    //                         </div>
-    //                     </div>
-    //                 `;
-
-    //                 productContainer.innerHTML += productCard;
-    //             });
-    //         })
-    //         .catch(error => console.log('error', error));
-
-
-
     document.addEventListener('DOMContentLoaded', function () {
         const productContainer = document.getElementById('productContainer');
 
@@ -99,8 +20,8 @@ document.addEventListener('DOMContentLoaded', function () {
         redirect: 'follow'
     };
 
-    
-    fetch("http://masomy-admin.test/api/products/find/top_rated", requestOptions)
+
+    fetch(`${serverUrl}/api/products/find/top_rated`, requestOptions)
         .then(response => response.json())
         .then(products => {
 
@@ -108,32 +29,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
             products.forEach(product => {
                 var texthtml = '';
-                for (let index = 0; index < 5; index++) {
-                    if (index < product.valorations[0].total_rating) {
-                        texthtml += '<i class="text-warning fa fa-star"></i>';
-                    } else {
+                // console.log()
+
+                if (product.valorations.length != 0) {
+                    for (let index = 0; index < 5; index++) {
+                        if (index < product.valorations[0].total_rating) {
+                            texthtml += '<i class="text-warning fa fa-star"></i>';
+                        } else {
+                            texthtml += '<i class="text-muted fa fa-star"></i>';
+                        }
+                    }
+                } else {
+                    for (let index = 0; index < 5; index++) {
                         texthtml += '<i class="text-muted fa fa-star"></i>';
                     }
                 }
 
-                console.log('http://masomy-admin.test'+product.picture)
-
+                var totalReviews = product.valorations.length != 0 ? product.valorations[0].total_reviews : 0;
                 const productCard = `
                 <div class="col-12 col-md-4 mb-4 product-card" data-product-id="${product.id}">
                     <div class="card h-100">
                         <a href="shop-single.html?product_id=${product.id}">
-                            <img src="http://masomy-admin.test//${product.picture}" class="card-img-top" alt="${product.name}">
+                            <img src="${serverUrl}/${product.picture}" class="card-img-top" alt="${product.name}">
                         </a>
                         <div class="card-body">
                             <ul class="list-unstyled d-flex justify-content-between">
                                 <li>
                                     ${texthtml}
                                 </li>
-                                <li class="text-muted text-right">$${product.price.toFixed(0)}</li>
+                                <li class="text-muted text-right font-weight-bold text-success">${formatter.format(product.price)}</li>
                             </ul>
                             <a href="#" class="h2 text-decoration-none text-dark">${product.name}</a>
                             <p class="card-text">${product.description}</p>
-                            <p class="text-muted">Reviews (${product.valorations[0].total_reviews})</p>
+                            <p class="text-muted">Valoraciones (${totalReviews})</p>
                         </div>
                     </div>
                 </div>
@@ -143,27 +71,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         })
         .catch(error => console.log('error', error));
-
-    // const generateStars = (rating) => {
-    //     const fullStars = Math.floor(rating);
-    //     const halfStar = rating - fullStars >= 0.5 ? 1 : 0;
-
-    //     const stars = Array.from({ length: fullStars }, () => 'fa fa-star');
-    //     if (halfStar) {
-    //         stars.push('fa fa-star-half-o');
-    //     }
-
-    //     const remainingStars = Array.from({ length: 5 - stars.length }, () => 'fa fa-star-o');
-
-    //     // Agrega la clase "text-muted" a la última estrella gris
-    //     if (stars.length + remainingStars.length < 5) {
-    //         remainingStars[0] += ' text-muted';
-    //     }
-
-    //     const allStars = [...stars, ...remainingStars];
-
-    //     return allStars.map(starClass => `<i class="text-warning ${starClass}"></i>`).join('');
-    // };
 
     const generateStars = (rating) => {
         var texthtml = '';

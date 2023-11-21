@@ -1,3 +1,4 @@
+import { serverUrl } from './config.js';
 document.addEventListener('DOMContentLoaded', function () {
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('product_id');
@@ -12,19 +13,19 @@ document.addEventListener('DOMContentLoaded', function () {
         redirect: 'follow'
     };
 
-    fetch(`http://masomy-admin.test/api/products/${productId}`, requestOptions)
+    fetch(`${serverUrl}/api/products/${productId}`, requestOptions)
         .then(response => response.json())
         .then(product => {
-    
+
             document.getElementById('product_id').value = productId;
             document.getElementById('product_name').value = product.name;
             document.getElementById('product_picture').value = product.picture;
-            document.getElementById('product-detail').src = "http://masomy-admin.test//" + product.picture;
+            document.getElementById('product-detail').src = `${serverUrl}/` + product.picture;
             document.querySelector('.h2').innerText = product.name;
             document.querySelector('#product_description').innerText = product.description;
             document.querySelector('.h3').innerText = `$${product.price.toFixed(2)}`;
 
-    
+
             const starsContainer = document.querySelector('.contain-stars');
             starsContainer.innerHTML = "";
             const rating = product.average_rating;
@@ -46,33 +47,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const addToCartForm = document.querySelector('#form-add-to-cart');
 
-    
+
             addToCartForm.addEventListener('submit', function (event) {
                 event.preventDefault();
 
-        
+
                 const productId = document.getElementById('product_id').value;
                 const productName = document.getElementById('product_name').value;
                 const productPicture = document.getElementById('product_picture').value;
                 const quantity = parseInt(document.getElementById('var-value').innerText, 10);
 
-        
+
                 const product = {
                     id: productId,
                     name: productName,
                     quantity: quantity,
                     picture: productPicture
-            
+
                 };
 
-        
+
                 addToCart(product);
 
-        
-        
+
+
             });
 
-    
+
         })
         .catch(error => console.log('error', error));
 

@@ -1,16 +1,15 @@
 // cart.js
 document.addEventListener('DOMContentLoaded', function () {
-    // Obtén la información de los productos desde el localStorage
+
+    
+
     let cartProducts = JSON.parse(localStorage.getItem('cart')) || [];
 
-    // Selecciona el contenedor donde se mostrarán los productos
     const cartContainer = document.getElementById('cart-container');
     let emptyCartMessage = document.getElementById('empty-cart-message');
-    // Itera sobre los productos y crea elementos para mostrarlos en la página
     renderProducts();
 
 
-    // Función para crear una tarjeta de producto
     function createProductCard(product) {
         const card = document.createElement('div');
         card.classList.add('col-lg-4', 'mb-4');
@@ -30,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
         `;
 
-        // Agrega lógica para los botones de agregar/quitar/eliminar
         const addButton = card.querySelector('.btn-add');
         addButton.addEventListener('click', function () {
             product.quantity++;
@@ -45,7 +43,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 updateLocalStorage();
                 updateCardQuantity(card, product.quantity);
 
-                // Verifica si la cantidad llega a 0 y elimina el producto del carrito
                 if (product.quantity === 0) {
                     cartProducts = cartProducts.filter(p => p !== product);
                     updateLocalStorage();
@@ -68,22 +65,18 @@ document.addEventListener('DOMContentLoaded', function () {
         return card;
     }
 
-    // Función para actualizar la cantidad en la tarjeta del producto
     function updateCardQuantity(card, quantity) {
         const quantityElement = card.querySelector('.card-text:last-child');
         quantityElement.innerText = `Cantidad: ${quantity}`;
     }
 
-    // Función para actualizar el localStorage con la información actualizada
     function updateLocalStorage() {
         localStorage.setItem('cart', JSON.stringify(cartProducts));
     }
 
     function renderProducts() {
-        // console.log(cartProducts[0].quantity)
         cartContainer.innerHTML = ' <p id="empty-cart-message" class="text-center">El carrito está vacío</p>';
         emptyCartMessage = document.getElementById('empty-cart-message');
-        // alert(cartProducts.length)
         if (cartProducts.length != 0) {
             console.log(cartProducts.length)
             cartProducts.forEach(product => {
