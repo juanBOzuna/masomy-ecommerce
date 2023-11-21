@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    fetch("http://127.0.0.1:8000/api/categories")
+    fetch("http://masomy-admin.test/api/categories")
         .then(response => response.json())
         .then(categories => {
             renderAccordion(categories);
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const firstCategory = categories[0];
             const firstSubcategory = firstCategory.subcategories[0];
 
-            fetch(`http://127.0.0.1:8000/api/products/subcategorie/${firstSubcategory.id}`)
+            fetch(`http://masomy-admin.test/api/products/subcategorie/${firstSubcategory.id}`)
                 .then(response => response.json())
                 .then(products => {
                     renderAccordionItems(categories);
@@ -79,7 +79,7 @@ function addSubcategoryClickEvent() {
 
             const subcategoryId = link.dataset.subcategoryid;
 
-            fetch(`http://127.0.0.1:8000/api/products/subcategorie/${subcategoryId}`)
+            fetch(`http://masomy-admin.test/api/products/subcategorie/${subcategoryId}`)
                 .then(response => response.json())
                 .then(products => {
                     renderProducts(products);
@@ -94,15 +94,19 @@ function renderProducts(products) {
     const productsContainer = document.getElementById('productsContainer');
     productsContainer.innerHTML = "";
 
+    
+    
+    
     if (Array.isArray(products)) {
         products.forEach(product => {
+            // console.log('http://masomy-admin.test/'+product.picture)
             const productElement = document.createElement('div');
             productElement.innerHTML = `
             <div class="col-md-4">
                 <div class="card mb-4 product-wap rounded-0">
                     <!-- Estructura del producto (ajusta según tu diseño) -->
                     <div class="card rounded-0">
-                        <img class="card-img rounded-0 img-fluid" src="http://localhost/masomy/public/${product.picture}" alt="${product.name}">
+                        <img class="card-img rounded-0 img-fluid" src="http://masomy-admin.test/${product.picture}" alt="${product.name}">
                         <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                             <ul class="list-unstyled">
                                 <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
@@ -140,7 +144,7 @@ function renderProducts(products) {
                 const productId = link.getAttribute('productId');
                 const productName = link.getAttribute('productName');
                 const productPrice = parseFloat(link.getAttribute('productPrice'));
-                const productPicture = "http://localhost/masomy/public/" + link.getAttribute('productPicture');
+                const productPicture = "http://masomy-admin.test/" + link.getAttribute('productPicture');
 
                 const product = { id: productId, name: productName, price: productPrice, picture: productPicture };
 

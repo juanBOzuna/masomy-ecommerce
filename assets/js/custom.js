@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Hacer la solicitud a la API
-    // fetch('http://127.0.0.1:8000/api/products/find/top_rated')
+    // fetch('http://masomy-admin.test/api/products/find/top_rated')
     //     .then(response => response.json())
     //     .then(products => {
     //         // Renderizar los productos en el contenedor
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
     //         redirect: 'follow'
     //     };
 
-    //     fetch("http://127.0.0.1:8000/api/products/find/top_rated", requestOptions)
+    //     fetch("http://masomy-admin.test/api/products/find/top_rated", requestOptions)
     //         .then(response => response.text())
     //         .then(productsR => {
     //             // Renderizar los productos en el contenedor
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     
-    fetch("http://127.0.0.1:8000/api/products/find/top_rated", requestOptions)
+    fetch("http://masomy-admin.test/api/products/find/top_rated", requestOptions)
         .then(response => response.json())
         .then(products => {
 
@@ -116,11 +116,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
 
+                console.log('http://masomy-admin.test'+product.picture)
+
                 const productCard = `
                 <div class="col-12 col-md-4 mb-4 product-card" data-product-id="${product.id}">
                     <div class="card h-100">
                         <a href="shop-single.html?product_id=${product.id}">
-                            <img src="http://localhost/masomy/public/${product.picture}" class="card-img-top" alt="${product.name}">
+                            <img src="http://masomy-admin.test//${product.picture}" class="card-img-top" alt="${product.name}">
                         </a>
                         <div class="card-body">
                             <ul class="list-unstyled d-flex justify-content-between">

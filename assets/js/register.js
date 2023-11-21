@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         // Realizar la solicitud de registro
-        fetch("http://127.0.0.1:8000/api/register", requestOptions)
+        fetch("http://masomy-admin.test/api/register", requestOptions)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Error en la solicitud de registro');

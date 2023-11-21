@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         // Realiza la solicitud de deslogueo
-        fetch("http://127.0.0.1:8000/api/logout", requestOptions)
+        fetch("http://masomy-admin.test/api/logout", requestOptions)
             .then(response => response.json())
             .then(data => {
                 if (response.ok) {

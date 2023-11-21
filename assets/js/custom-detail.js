@@ -12,14 +12,14 @@ document.addEventListener('DOMContentLoaded', function () {
         redirect: 'follow'
     };
 
-    fetch(`http://127.0.0.1:8000/api/products/${productId}`, requestOptions)
+    fetch(`http://masomy-admin.test/api/products/${productId}`, requestOptions)
         .then(response => response.json())
         .then(product => {
     
             document.getElementById('product_id').value = productId;
             document.getElementById('product_name').value = product.name;
             document.getElementById('product_picture').value = product.picture;
-            document.getElementById('product-detail').src = "http://localhost/masomy/public/" + product.picture;
+            document.getElementById('product-detail').src = "http://masomy-admin.test//" + product.picture;
             document.querySelector('.h2').innerText = product.name;
             document.querySelector('#product_description').innerText = product.description;
             document.querySelector('.h3').innerText = `$${product.price.toFixed(2)}`;

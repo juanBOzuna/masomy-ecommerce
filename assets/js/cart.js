@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function createProductCard(product) {
         const card = document.createElement('div');
         card.classList.add('col-lg-4', 'mb-4');
-
         card.innerHTML = `
             <div class="card h-100">
                 <img src="${product.picture}" class="card-img-top" alt="${product.name}">
