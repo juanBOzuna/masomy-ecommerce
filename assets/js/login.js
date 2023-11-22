@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(data => {
                 if (data.accessToken) {
                     localStorage.setItem('userSession', JSON.stringify(data.user));
-                    localStorage.setItem('accessToken', data.accessToken);
+                    localStorage.setItem('accessToken', JSON.stringify({ "token": data.accessToken }));
 
                     window.location.href = 'index.html';
                 } else {

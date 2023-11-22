@@ -54,7 +54,7 @@ class HeaderCustom extends HTMLElement {
                                 <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
                                 <!-- <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span> -->
                             </a>
-                            <a class="nav-icon position-relative text-decoration-none" data-bs-toggle="modal"
+                            <a class="nav-icon position-relative text-decoration-none" href="profile.html"
                                 data-bs-target="#profileModal" id="btn-view-profile" href="#">
                                 <i class="fa fa-fw fa-user text-dark mr-3"></i>
                                 <!-- <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span> -->
@@ -121,10 +121,10 @@ class HeaderCustom extends HTMLElement {
             btnRegister.style.display = 'inline-block';
         }
 
-        btnLogout.addEventListener('click', function () {
-            localStorage.removeItem('userSession');
-            window.location.reload();
-        });
+        // btnLogout.addEventListener('click', function () {
+        //     localStorage.removeItem('userSession');
+        //     window.location.reload();
+        // });
 
 
 
@@ -134,10 +134,14 @@ class HeaderCustom extends HTMLElement {
         var btnLogout = document.getElementById('btn-logout');
 
         btnLogout.addEventListener('click', function () {
-            var tuTokenDeAcceso = localStorage.getItem('accessToken');
-
+            var tuTokenDeAcceso = JSON.parse(localStorage.getItem('accessToken')).token;
+            // alert(tuTokenDeAcceso)
             if (!tuTokenDeAcceso) {
-                console.error('Token de acceso no encontrado en el localStorage');
+                console.error('Token de acceso no encontrado ')
+
+                localStorage.removeItem('accessToken');
+                localStorage.removeItem('userSession');
+                window.location.reload();
                 return;
             }
 
@@ -154,14 +158,9 @@ class HeaderCustom extends HTMLElement {
             fetch(`${serverUrl}/api/logout`, requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                    if (response.ok) {
-                        console.log(data);
-                        localStorage.removeItem('accessToken');
-                        localStorage.removeItem('userSession');
-                        window.location.href = '/';
-                    } else {
-                        console.error('Error en el logout:', response.status, data.message);
-                    }
+                    localStorage.removeItem('accessToken');
+                    localStorage.removeItem('userSession');
+                    window.location.reload();
                 })
                 .catch(error => {
                     console.error('Error en la solicitud Fetch:', error);

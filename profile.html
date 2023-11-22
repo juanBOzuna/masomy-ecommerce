@@ -1,5 +1,3 @@
-<!-- login.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,17 +5,71 @@
     <title>Masomy</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/icono_de_masomy.jpg">
+
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/templatemo.css">
     <link rel="stylesheet" href="assets/css/custom.css">
+
+    <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+
+    <!-- Load map styles -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <!--
+    
+
+
+-->
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .profile-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .profile-info {
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+        .btn-edit-profile {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+    </style>
 </head>
 
 <body>
-
+    <!-- Start Top Nav -->
     <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
         <div class="container text-light">
             <div class="w-100 d-flex justify-content-between">
@@ -37,53 +89,47 @@
             </div>
         </div>
     </nav>
+    <!-- Close Top Nav -->
 
+
+    <!-- Header -->
     <header-custom></header-custom>
 
+    <!-- Close Header -->
 
-    <section class="container py-5">
-        <div class="row">
-            <div class="col-md-6 mx-auto">
-                <div class="card product-wap rounded">
-                    <div class="card-header">
-                        <h3 class="h2 text-center">Registro</h3>
-                    </div>
-                    <div class="card-body">
-                        <form action="#" method="post">
-                            <div class="mb-3">
-                                <label for="registerName" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="registerName" name="registerName" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="registerEmail" class="form-label">Correo Electrónico</label>
-                                <input type="email" class="form-control" id="registerEmail" name="registerEmail"
-                                    required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="registerPhone" class="form-label">Telefono</label>
-                                <input type="tel" class="form-control" id="registerPhone" name="registerPhone" required>
-                                <!-- <small>Ingresa un número de teléfono válido para Colombia (10 dígitos).</small> -->
-
-                            </div>
-                            <div class="mb-3">
-                                <label for="registerPassword" class="form-label">Contraseña</label>
-                                <input type="password" class="form-control" id="registerPassword"
-                                    name="registerPassword" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="registerPassword" class="form-label">Repetir Contrasena</label>
-                                <input type="password" class="form-control" id="repeatPassword" name="registerPassword"
-                                    required>
-                            </div>
-                            <button type="submit" class="btn btn-success w-100">Registrar</button>
-                        </form>
-                    </div>
-                </div>
+    <!-- Modal -->
+    <!-- <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="w-100 pt-1 mb-5 text-right">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form action="" method="get" class="modal-content modal-body border-0 p-0">
+                <div class="input-group mb-2">
+                    <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
+                    <button type="submit" class="input-group-text bg-success text-light">
+                        <i class="fa fa-fw fa-search text-white"></i>
+                    </button>
+                </div>
+            </form>
         </div>
-    </section>
+    </div> -->
 
-    <!-- ... (footer code) ... -->
+
+    <div class="container profile-container">
+        <div class="text-center">
+            <img src="https://via.placeholder.com/150" alt="Profile Picture" id="profile_user" class="profile-picture">
+            <div class="profile-name" id="profileName"></div>
+            <div class="profile-info" id="profileInfo">
+                <p id="email"><i class="fas fa-envelope"></i><span> </span>correo@ejemplo.com</p>
+                <p id="numberPhone"></p>
+            </div>
+            <button class="btn btn-edit-profile" onclick="editProfile()">Editar Perfil</button>
+        </div>
+    </div>
+    <!-- End Contact -->
+
+
+    <!-- Start Footer -->
     <footer class="bg-dark" id="tempaltemo_footer">
         <div class="container">
             <div class="row">
@@ -128,7 +174,6 @@
                         <li><a class="text-decoration-none" href="politica_de_envio.html">Política de Envío</a></li>
                     </ul>
                 </div>
-
             </div>
 
             <div class="row text-light mb-4">
@@ -137,6 +182,7 @@
                 </div>
                 <div class="col-auto me-auto">
                     <ul class="list-inline text-left footer-icons">
+
                         <li class="list-inline-item border border-light rounded-circle text-center">
                             <a class="text-light text-decoration-none" target="_blank"
                                 href="https://www.instagram.com/masomyoficial/?utm_source=ig_web_button_share_sheet&igshid=OGQ5ZDc2ODk2ZA=="><i
@@ -168,15 +214,17 @@
         </div>
 
     </footer>
+    <!-- End Footer -->
 
+    <!-- Start Script -->
     <script src="assets/js/jquery-1.11.0.min.js"></script>
     <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/templatemo.js"></script>
-    <!-- <script src="assets/js/custom.js"></script> -->
     <!-- <script src="assets/js/logout.js" type="module"></script> -->
     <script src="assets/js/components/HeaderCustom.js" type="module"></script>
-    <script src="assets/js/register.js" type="module"></script>
+    <script src="assets/js/profile.js" type="module"></script>
+    <!-- End Script -->
 </body>
 
 </html>
