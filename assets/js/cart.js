@@ -97,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
         buttonGenerateLink.style.display = "none";
         const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
         const accessToken = JSON.parse(localStorage.getItem('accessToken')).token || "";
+        alert(accessToken);
         if (accessToken != "") {
             const requestBody = {
                 products: cartItems.map(item => ({
@@ -107,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var myHeaders = new Headers();
             myHeaders.append("Accept", "application/json");
             myHeaders.append("Content-Type", "application/json");
-            myHeaders.append("Authorization", "Bearer 9|WBblqnqCsFrA9jBFKE3r2h0mqNc0FNapB2b7810D");
+            myHeaders.append("Authorization", "Bearer " + accessToken);
 
             console.log(JSON.stringify({
                 "products": [
@@ -143,8 +144,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById('loadingSpinner').classList.add('d-none');
                     if (!response.ok) {
                         if (response.status === 401) {
-                            localStorage.removeItem('accessToken');
-                            localStorage.removeItem('userSession');
+                            // localStorage.removeItem('accessToken');
+                            // localStorage.removeItem('userSession');
                             alert('Necesita volver a Loguearse');
                             setTimeout(function () {
                                 location.reload();
@@ -162,7 +163,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById('loadingSpinner').classList.add('d-none');
 
                     console.log(result.url)
-                    containerButtons.innerHTML += ` <button id="btn_generar_link" class="btn btn-success w-100" onclick="generarLink(${result.url})" >Pagar!</button>`;
+                    containerButtons.innerHTML += ` <button id="btn_pagar" class="btn btn-success w-100" >Pagar!</button>`;
+
+                    let btnPagar = document.querySelector('#btn_pagar');
+                    btnPagar.addEventListener('click', function () {
+                        window.open(result.url, '_blank');
+                    });
 
                 })
                 .catch(error => {
@@ -177,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 });
         } else {
-            buttonGenerateLink.style.display = "block";
+            // buttonGenerateLink.style.display = "block";
             alert('Necesita loguearse primero')
             setTimeout(function () {
                 window.location.href = 'login.html';
@@ -256,8 +262,9 @@ document.addEventListener('DOMContentLoaded', function () {
         // Aquí colocas tu lógica para generar el enlace
         var linkGenerado = link;  // Reemplaza esto con tu lógica real
 
+        alert('click')
         // Abre el enlace en una nueva pestaña
-        window.open(linkGenerado, '_blank');
+        // window.open(linkGenerado, '_blank');
     }
 
 
