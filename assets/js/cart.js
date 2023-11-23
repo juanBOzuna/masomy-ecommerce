@@ -121,14 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             console.log(JSON.stringify(requestBody))
 
-            var raw = JSON.stringify({
-                "products": [
-                    {
-                        "id": 4,
-                        "quantity": 2
-                    }
-                ]
-            });
+            var raw = JSON.stringify(requestBody);
 
             var requestOptions = {
                 method: 'POST',
@@ -139,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('loadingSpinner').classList.remove('d-none');
 
 
-            fetch("http://127.0.0.1:8000/api/generatePayMentLink", requestOptions)
+            fetch(`${serverUrl}/api/generatePayMentLink`, requestOptions)
                 .then(response => {
                     document.getElementById('loadingSpinner').classList.add('d-none');
                     if (!response.ok) {
