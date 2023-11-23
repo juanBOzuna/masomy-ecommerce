@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             document.getElementById('product_id').value = productId;
             document.getElementById('product_name').value = product.name;
-            document.getElementById('product_picture').value = product.picture;
+            document.getElementById('product_price').value = product.price;
+            document.getElementById('product_picture').value = `${serverUrl}/`+product.picture;
             document.getElementById('product-detail').src = `${serverUrl}/` + product.picture;
             document.querySelector('.h2').innerText = product.name;
             document.querySelector('#product_description').innerText = product.description;
@@ -54,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const productId = document.getElementById('product_id').value;
                 const productName = document.getElementById('product_name').value;
+                const productprice = document.getElementById('product_price').value;
                 const productPicture = document.getElementById('product_picture').value;
                 const quantity = parseInt(document.getElementById('var-value').innerText, 10);
 
@@ -61,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const product = {
                     id: productId,
                     name: productName,
+                    price:productprice,
                     quantity: quantity,
                     picture: productPicture
 
