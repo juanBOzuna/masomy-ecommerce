@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
             products.forEach(product => {
                 var texthtml = '';
                 // console.log()
-
+                console.log(product)
                 if (product.valorations.length != 0) {
                     for (let index = 0; index < 5; index++) {
                         if (index < product.valorations[0].total_rating) {
