@@ -94,11 +94,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     buttonGenerateLink.addEventListener('click', function () {
-        buttonGenerateLink.style.display = "none";
+
         const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-        const accessToken = JSON.parse(localStorage.getItem('accessToken')).token || "";
-        alert(accessToken);
+        let accessToken = JSON.parse(localStorage.getItem('accessToken')) || "";
+        // alert(accessToken);
         if (accessToken != "") {
+            accessToken = accessToken.token;
             const requestBody = {
                 products: cartItems.map(item => ({
                     id: parseInt(item.id),
@@ -129,6 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 body: raw,
                 redirect: 'follow'
             };
+            this.style.display = "none";
             document.getElementById('loadingSpinner').classList.remove('d-none');
 
 
@@ -183,82 +185,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 1000);
         }
 
-        // // Construir el cuerpo de la solicitud
-        // if (accessToken != "") {
-        //     const requestBody = {
-        //         products: cartItems.map(item => ({
-        //             id: item.id,
-        //             quantity: item.quantity
-        //         }))
-        //     };
-
-        //     // Configurar la solicitud
-        //     var myHeaders = new Headers();
-        //     myHeaders.append("Accept", "application/json");
-        //     myHeaders.append("Content-Type", "application/json");
-        //     myHeaders.append("Authorization", `Bearer ${accessToken}`);
-
-        //     var requestOptions = {
-        //         method: 'POST',
-        //         headers: myHeaders,
-        //         body: JSON.stringify(requestBody),
-        //         redirect: 'follow'
-        //     };
-        //     // console.log(requestOptions)
-        //     // Realizar la solicitud
-        //     fetch(`${serverUrl}/api/generatePayMentLink`, requestOptions)
-        //         .then(response => {
-        //             console.log(response)
-        //             // if (!response.ok) {
-        //             //     if (response.status === 401) {
-        //             //         localStorage.removeItem('accessToken');
-        //             //         localStorage.removeItem('userSession');
-        //             //         alert('Necesita volver a Loguearse');
-        //             //         setTimeout(function () {
-        //             //             location.reload();
-        //             //         }, 1000);
-        //             //     } else if (response.status === 422) {
-        //             //         alert('Hay productos en tu carrito que no existen o estan inactivos');
-        //             //     } else {
-        //             //         throw new Error(response.statusText);
-        //             //     }
-        //             // }
-
-        //             return response.json()
-        //         })
-        //         .then(result => {
-        //             // Manejar la respuesta exitosa aquí (result)
-        //             console.log("LARESP");
-        //             console.log(result);
-        //         })
-        //         .catch(error => {
-        //             // Manejar otros errores aquí
-        //             if (error instanceof TypeError) {
-        //                 console.log('Error de red o conexión.');
-        //             } else {
-        //                 error.json().then(errorMessage => {
-        //                     // Manejar el mensaje de error
-        //                     console.log('Error:', errorMessage);
-        //                 });
-        //             }
-        //         });
-        // } else {
-        //     alert('Necesita loguearse primero')
-        //     setTimeout(function () {
-        //         window.location.href = 'login.html';
-        //     }, 1000);
-        // }
-
     });
-
-    function abrirLinkPago(link) {
-        // Aquí colocas tu lógica para generar el enlace
-        var linkGenerado = link;  // Reemplaza esto con tu lógica real
-
-        alert('click')
-        // Abre el enlace en una nueva pestaña
-        // window.open(linkGenerado, '_blank');
-    }
 
 
     window.addEventListener('focus', function () {
