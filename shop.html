@@ -25,6 +25,54 @@
 </head>
 
 <body>
+
+    <div class="modal fade" id="ratingModal" tabindex="-1" role="dialog" aria-labelledby="ratingModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ratingModalLabel">Calificar </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modal-body-calificar">
+                    <input type="hidden" name="product_id" id="product_id_modal_calificar">
+                    <p>Selecciona tu calificación:</p>
+                    <!-- Modifica el HTML de las estrellas directamente en el modal -->
+                    <div id="ratingStars" class="rating-stars">
+                        <i class="text-muted fa fa-star" data-rating="1" onmouseover="handleStarHover(this)"
+                            onclick="handleStarClick(this)"></i>
+                        <i class="text-muted fa fa-star" data-rating="2" onmouseover="handleStarHover(this)"
+                            onclick="handleStarClick(this)"></i>
+                        <i class="text-muted fa fa-star" data-rating="3" onmouseover="handleStarHover(this)"
+                            onclick="handleStarClick(this)"></i>
+                        <i class="text-muted fa fa-star" data-rating="4" onmouseover="handleStarHover(this)"
+                            onclick="handleStarClick(this)"></i>
+                        <i class="text-muted fa fa-star" data-rating="5" onmouseover="handleStarHover(this)"
+                            onclick="handleStarClick(this)"></i>
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control mt-1" id="message" name="message" placeholder="Mensaje" rows="8"
+                            required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button> -->
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+
+                    <div id="loadingSpinner" class="text-center d-none">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Cargando...</span>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary" id="enviarCalificacionBtn">Enviar
+                        Calificación</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Start Top Nav -->
     <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
         <div class="container text-light">
@@ -34,11 +82,13 @@
                     <a class="navbar-sm-brand text-light text-decoration-none"
                         href="mailto:info@company.com">masomyoficial@gmail.com</a>
                     <i class="fa fa-phone mx-2"></i>
-                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">+57 3008866978</a>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">+57
+                        3008866978</a>
                 </div>
                 <div>
-                    <a class="text-light" href="https://www.instagram.com/masomyoficial/?utm_source=ig_web_button_share_sheet&igshid=OGQ5ZDc2ODk2ZA==" target="_blank"><i
-                            class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light"
+                        href="https://www.instagram.com/masomyoficial/?utm_source=ig_web_button_share_sheet&igshid=OGQ5ZDc2ODk2ZA=="
+                        target="_blank"><i class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
                 </div>
             </div>
         </div>
@@ -47,7 +97,7 @@
 
 
     <!-- Header -->
-   <header-custom></header-custom>
+    <header-custom></header-custom>
     <!-- Close Header -->
 
     <!-- Modal -->
@@ -87,142 +137,18 @@
             </div>
 
             <div class="col-lg-9">
-                <!-- <div class="row">
-                    <div class="col-md-6">
-                        <ul class="list-inline shop-top-menu pb-3 pt-1">
-                            <li class="list-inline-item">
-                                <a class="h3 text-dark text-decoration-none mr-3" href="#">All</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="h3 text-dark text-decoration-none mr-3" href="#">Men's</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="h3 text-dark text-decoration-none" href="#">Women's</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6 pb-4">
-                        <div class="d-flex">
-                            <select class="form-control">
-                                <option>Featured</option>
-                                <option>A to Z</option>
-                                <option>Item</option>
-                            </select>
-                        </div>
-                    </div>
-                </div> -->
+
+
                 <div class="row" id="productsContainer">
-                    <!-- <div class="col-md-4">
-                        <div class="card mb-4 product-wap rounded-0">
-                            <div class="card rounded-0">
-                                <img class="card-img rounded-0 img-fluid" src="assets/img/shop_01.jpg">
-                                <div
-                                    class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                    <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white" href="shop-single.html"><i
-                                                    class="far fa-heart"></i></a></li>
-                                        <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i
-                                                    class="far fa-eye"></i></a></li>
-                                        <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i
-                                                    class="fas fa-cart-plus"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <a href="shop-single.html" class="h3 text-decoration-none">Oupidatat non</a>
-                                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                                    <li>M/L/X/XL</li>
-                                    <li class="pt-2">
-                                        <span
-                                            class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                                        <span
-                                            class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
-                                        <span
-                                            class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
-                                        <span
-                                            class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
-                                        <span
-                                            class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
-                                    </li>
-                                </ul>
-                                <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                    <li>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-muted fa fa-star"></i>
-                                        <i class="text-muted fa fa-star"></i>
-                                    </li>
-                                </ul>
-                                <p class="text-center mb-0">$250.00</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-4 product-wap rounded-0">
-                            <div class="card rounded-0">
-                                <img class="card-img rounded-0 img-fluid" src="assets/img/shop_02.jpg">
-                                <div
-                                    class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                    <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white" href="shop-single.html"><i
-                                                    class="far fa-heart"></i></a></li>
-                                        <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i
-                                                    class="far fa-eye"></i></a></li>
-                                        <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i
-                                                    class="fas fa-cart-plus"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <a href="shop-single.html" class="h3 text-decoration-none">Oupidatat non</a>
-                                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                                    <li>M/L/X/XL</li>
-                                    <li class="pt-2">
-                                        <span
-                                            class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                                        <span
-                                            class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
-                                        <span
-                                            class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
-                                        <span
-                                            class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
-                                        <span
-                                            class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
-                                    </li>
-                                </ul>
-                                <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                    <li>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-muted fa fa-star"></i>
-                                        <i class="text-muted fa fa-star"></i>
-                                    </li>
-                                </ul>
-                                <p class="text-center mb-0">$250.00</p>
-                            </div>
-                        </div>
-                    </div> -->
+
                 </div>
-                <!-- <div class="row">
-                    <ul class="pagination pagination-lg justify-content-end">
-                        <li class="page-item disabled">
-                            <a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="#"
-                                tabindex="-1">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark"
-                                href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" href="#">3</a>
-                        </li>
-                    </ul>
-                </div> -->
             </div>
 
         </div>
+
+        <!-- <button class="btn btn-primary" id="openRatingModalBtn">
+            Calificar Producto
+        </button> -->
     </div>
     <!-- End Content -->
     <!-- Start Footer -->
@@ -261,9 +187,12 @@
                 <div class="col-md-4 pt-5">
                     <h2 class="h2 text-light border-bottom pb-3 border-light">Informacion adicional</h2>
                     <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="devolucion_y_reembolso.html">Política de Devolución y Reembolso</a></li>
-                        <li><a class="text-decoration-none" href="politica_de_privacidad.html">Política de Privacidad</a></li>
-                        <li><a class="text-decoration-none" href="terminos_del_servicio.html">Términos del Servicio</a></li>
+                        <li><a class="text-decoration-none" href="devolucion_y_reembolso.html">Política de Devolución y
+                                Reembolso</a></li>
+                        <li><a class="text-decoration-none" href="politica_de_privacidad.html">Política de
+                                Privacidad</a></li>
+                        <li><a class="text-decoration-none" href="terminos_del_servicio.html">Términos del Servicio</a>
+                        </li>
                         <li><a class="text-decoration-none" href="politica_de_envio.html">Política de Envío</a></li>
                     </ul>
                 </div>
@@ -278,7 +207,8 @@
                     <ul class="list-inline text-left footer-icons">
                         <li class="list-inline-item border border-light rounded-circle text-center">
                             <a class="text-light text-decoration-none" target="_blank"
-                            href="https://www.instagram.com/masomyoficial/?utm_source=ig_web_button_share_sheet&igshid=OGQ5ZDc2ODk2ZA=="><i class="fab fa-instagram fa-lg fa-fw"></i></a>
+                                href="https://www.instagram.com/masomyoficial/?utm_source=ig_web_button_share_sheet&igshid=OGQ5ZDc2ODk2ZA=="><i
+                                    class="fab fa-instagram fa-lg fa-fw"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -309,13 +239,46 @@
     <!-- End Footer -->
 
     <!-- Start Script -->
-    <script src="assets/js/jquery-1.11.0.min.js"></script>
-    <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <!-- <script src="assets/js/jquery-1.11.0.min.js"></script>
+    <script src="assets/js/jquery-migrate-1.2.1.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/templatemo.js"></script>
     <script src="assets/js/shop.js" type="module"></script>
-    
+
     <script src="assets/js/components/HeaderCustom.js" type="module"></script>
+
+
+    <script>
+        function handleStarHover(star) {
+            var hoveredRating = star.getAttribute('data-rating');
+            var stars = star.parentElement.children;
+
+            for (let i = 0; i < stars.length; i++) {
+                if (i < hoveredRating) {
+                    stars[i].className = 'text-warning fa fa-star';
+                } else {
+                    stars[i].className = 'text-muted fa fa-star';
+                }
+            }
+        }
+
+        function handleStarClick(star) {
+            var clickedRating = star.getAttribute('data-rating');
+            var stars = star.parentElement.children;
+
+            // Actualiza todas las estrellas con la calificación seleccionada
+            for (let i = 0; i < stars.length; i++) {
+                if (i < clickedRating) {
+                    stars[i].className = 'text-warning fa fa-star';
+                } else {
+                    stars[i].className = 'text-muted fa fa-star';
+                }
+            }
+        }
+    </script>
     <!-- End Script -->
 </body>
 

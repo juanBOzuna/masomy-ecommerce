@@ -88,31 +88,28 @@
 
     <!-- Start Contact -->
     <div class="container py-5">
+
+        <div id="ticket-reference-container" class="container text-center" style="display: none;">
+            <p id="ticket-reference-text" style="font-weight: bold; font-size: 16px; ">Ticket #: <span
+                    id="reference-ticket" style="font-size: 23px; color: green; font-weight: bold !important; "></span>
+            </p>
+            <p id="ticket-reference-text" style="font-weight: bold; margin-top: 0px !important; font-size: 13px; ">
+                Masomy se contactara contigo por correo electronico.</p>
+        </div>
         <div class="row py-5">
-            <form class="col-md-9 m-auto" method="post" role="form">
-                <div class="row">
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="inputname">Nombre</label>
-                        <input type="text" class="form-control mt-1" id="name" name="name" placeholder="Nombre">
-                    </div>
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="inputemail">correo electronico</label>
-                        <input type="email" class="form-control mt-1" id="email" name="email"
-                            placeholder="correo electronico">
-                    </div>
-                </div>
+            <form class="col-md-9 m-auto"  id="form_contactar">
                 <div class="mb-3">
                     <label for="inputsubject">Sujeto</label>
-                    <input type="text" class="form-control mt-1" id="subject" name="subject" placeholder="Sujeto">
+                    <input type="text" class="form-control mt-1" id="subject" name="subject" placeholder="Sujeto" required>
                 </div>
                 <div class="mb-3">
                     <label for="inputmessage">Mensaje</label>
                     <textarea class="form-control mt-1" id="message" name="message" placeholder="Mensaje"
-                        rows="8"></textarea>
+                        rows="8" required ></textarea>
                 </div>
                 <div class="row">
                     <div class="col text-end mt-2">
-                        <button type="submit" class="btn btn-success btn-lg px-3">hablemos</button>
+                        <button type="submit" id="btn_contactar" class="btn btn-success btn-lg px-3">hablemos</button>
                     </div>
                 </div>
             </form>
@@ -133,6 +130,7 @@
     <!-- <script src="assets/js/custom.js"></script> -->
     <!-- <script src="assets/js/logout.js" type="module"></script> -->
     <script src="assets/js/components/HeaderCustom.js" type="module"></script>
+    <script src="assets/js/contactanos.js" type="module" ></script>
     <script src="assets/js/components/FooterCustom.js" type="module"></script>
     <!-- End Script -->
 </body>

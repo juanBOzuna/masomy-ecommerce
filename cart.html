@@ -82,14 +82,28 @@
             <!-- Puedes duplicar esta tarjeta para representar otros productos en el carrito -->
         </div>
 
+        <div class="container py-2 pb-0" id="container_countable_details">
+            <p style="margin: 2px; color: green; font-weight: bold; " id="subtotalCompra">SUBTOTAL: </p>
+            <p style="margin: 2px; color: red; font-weight: bold" id="descuentoCompra">DESCUENTO: </p>
+            <p style="margin: 2px; color: green; font-weight: bold" id="totalCompra">TOTAL: </p>
 
-        <div class="container py-5" id="container_buttons_payment">
+        </div>
+
+        <div class="container py-1" id="container_buttons_payment">
             <div id="loadingSpinner" class="text-center d-none">
                 <div class="spinner-border" role="status">
                     <span class="sr-only">Cargando...</span>
                 </div>
             </div>
-            <button id="btn_generar_link" style="display: block;" class="btn btn-success w-100">Generar Link de Pago</button>
+            <div id="payment-reference-container" class="container py-3 text-center" style="display: none;">
+                <p id="payment-reference-text" style="font-weight: bold; font-size: 16px; ">Referencia de Pago: <span
+                        id="reference-code"
+                        style="font-size: 23px; color: green; font-weight: bold !important; "></span> </p>
+                <p id="payment-reference-text" style="font-weight: bold; margin-top: 0px !important; font-size: 13px; ">
+                    Guarde Esta referencia para conocer el estado de su pago y de su orden </p>
+            </div>
+            <button id="btn_generar_link" style="display: block;" class="btn btn-success w-100">Generar Link de
+                Pago</button>
         </div>
 
 
