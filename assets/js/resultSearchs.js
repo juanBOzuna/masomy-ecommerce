@@ -3,33 +3,37 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchQuery = '6000';
     const searchResultsContainer = document.getElementById('search-results-container');
 
-    // alert(searchResultsContainer)
+    // const currentUrl = new URL(window.location.href);
 
-    // Función para cargar y mostrar resultados
-    function loadResults(page = 1) {
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                search_query: searchQuery,
-                page: page,
-            }),
-        };
+    // // Obtener el parámetro 'q'
+    // const qParam = currentUrl.searchParams.get('q');
 
-        // const apiUrl = ;
+    // if (qParam != null) {
 
-        fetch(`${serverUrl}/api/performsearch`, requestOptions)
-            .then(response => response.json())
-            .then(data => {
-                // Limpiar el contenedor antes de agregar nuevos resultados
-                searchResultsContainer.innerHTML = '';
+        function loadResults(page = 1) {
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    search_query: searchQuery,
+                    page: page,
+                }),
+            };
 
-                data.data.forEach(result => {
-                    const resultElement = document.createElement('div');
-                    resultElement.classList.add('col-lg-4', 'mb-4');
-                    resultElement.innerHTML = `
+            // const apiUrl = ;
+
+            fetch(`${serverUrl}/api/performsearch`, requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    // Limpiar el contenedor antes de agregar nuevos resultados
+                    searchResultsContainer.innerHTML = '';
+
+                    data.data.forEach(result => {
+                        const resultElement = document.createElement('div');
+                        resultElement.classList.add('col-lg-4', 'mb-4');
+                        resultElement.innerHTML = `
                             <div class="card h-100">
                                 <img src="${serverUrl}/${result.picture}" class="card-img-top" alt="${result.name}">
                                 <div class="card-body">
@@ -41,37 +45,42 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </div>
                             </div>
                         `;
-                    searchResultsContainer.appendChild(resultElement);
+                        searchResultsContainer.appendChild(resultElement);
 
 
-                });
-
-
-                const addToCartButtons = document.querySelectorAll('.addToCart');
-                console.log(addToCartButtons)
-
-                addToCartButtons.forEach(buttonAdd => {
-                    buttonAdd.addEventListener('click', function (event) {
-                        event.preventDefault();
-
-                        const productId = buttonAdd.getAttribute('productId');
-                        const productName = buttonAdd.getAttribute('productName');
-                        const productPrice = parseFloat(buttonAdd.getAttribute('productPrice'));
-                        const productPicture = `${serverUrl}/` + buttonAdd.getAttribute('productPicture');
-
-                        const product = { id: productId, name: productName, price: productPrice, picture: productPicture };
-                        // console.log(product)
-                        addToCart(product);
                     });
-                });
-                // Actualizar los botones de paginación
-                updatePagination(data.total_pages, data.current_page);
-            })
-            .catch(error => console.error('Error:', error));
+
+
+                    const addToCartButtons = document.querySelectorAll('.addToCart');
+                    console.log(addToCartButtons)
+
+                    addToCartButtons.forEach(buttonAdd => {
+                        buttonAdd.addEventListener('click', function (event) {
+                            event.preventDefault();
+
+                            const productId = buttonAdd.getAttribute('productId');
+                            const productName = buttonAdd.getAttribute('productName');
+                            const productPrice = parseFloat(buttonAdd.getAttribute('productPrice'));
+                            const productPicture = `${serverUrl}/` + buttonAdd.getAttribute('productPicture');
+
+                            const product = { id: productId, name: productName, price: productPrice, picture: productPicture };
+                            // console.log(product)
+                            addToCart(product);
+                        });
+                    });
+                    // Actualizar los botones de paginación
+                    updatePagination(data.total_pages, data.current_page);
+                })
+                .catch(error => console.error('Error:', error));
 
 
 
-    }
+        }
+
+       
+    // } else {
+    //     window.location.href = 'index.html';
+    // }
 
 
     function addToCart(product) {
@@ -121,6 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Función para crear botones de paginación de manera dinámica
+
     function createPaginationButton(text, page) {
         const button = document.createElement('li');
         button.classList.add('page-item');
@@ -136,7 +146,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return button;
     }
 
-
     // Cargar resultados iniciales (página 1)
-    loadResults();
+    // loadResults();
 });

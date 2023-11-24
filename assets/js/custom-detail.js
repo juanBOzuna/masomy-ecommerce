@@ -48,6 +48,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const addToCartForm = document.querySelector('#form-add-to-cart');
 
+            const averageRatingElement = document.getElementById('average-rating');
+            const userRatingsContainer = document.getElementById('user-ratings');
+
+            averageRatingElement.innerText = `Calificación total: ${product.average_rating} estrellas`;
+
+            product.valorations.forEach(rating => {
+                const ratingCard = createRatingCard(rating);
+                userRatingsContainer.appendChild(ratingCard);
+            });
 
             addToCartForm.addEventListener('submit', function (event) {
                 event.preventDefault();
@@ -81,11 +90,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
         })
         .catch(error => console.log('error', error));
-
-
-
-
 });
+
+function createRatingCard(rating) {
+    const card = document.createElement('div');
+    card.classList.add('card', 'mb-3');
+
+    card.innerHTML = `
+        <div class="card-body">
+            <h5 class="card-title">${rating.user.name}</h5>
+            <div class="d-flex justify-content-between">
+                <div>
+                    ${generateStarIcons(rating.rating)}
+                </div>
+                <p class="card-text">${rating.comment}</p>
+            </div>
+        </div>
+    `;
+
+    return card;
+}
+
+function generateStarIcons(rating) {
+    const starIcons = '<i class="fa fa-star"></i>'.repeat(rating);
+    return starIcons;
+}
 
 
 function addToCart(product) {
