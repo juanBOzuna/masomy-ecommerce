@@ -1,4 +1,6 @@
 import { serverUrl } from "./config.js";
+
+var formatter = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
 document.addEventListener("DOMContentLoaded", function () {
   fetch(`${serverUrl}/api/categories`)
     .then((response) => response.json())
@@ -95,6 +97,8 @@ function renderProducts(products) {
 
   if (Array.isArray(products)) {
     products.forEach((product) => {
+      let price = product.discount > 0 ? `<span style="color:red !important; font-size:15px" > <del>${(formatter.format(product.price))}  </del> </span>  | <span style= "font-size:20px !important; font-weight:bold !important; color:green" > ${formatter.format(product.price - ((product.price * product.discount) / 100))}  </span> ` : `<span style="color:green" >${(formatter.format(product.price))}</span>`;
+           
       // const productElement = document.createElement('div');
       var htmlProductActual = `
             <div class="col-md-4">
@@ -139,9 +143,10 @@ function renderProducts(products) {
                                 <!-- Puedes agregar más detalles aquí -->
                             </li>
                         </ul>
-                        <p class="text-center mb-0">$${product.price.toFixed(
-                          2
-                        )}</p>
+                        <p class="text-center mb-0">${price}</p>
+                        <div class="container-full text-center" style="font-size:14px !important">
+                        ${product.discount}% de descuento
+                        </div>
                     </div>
                 </div>
             </div>

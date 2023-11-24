@@ -1,4 +1,5 @@
 import { serverUrl } from './config.js';
+var formatter = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
 document.addEventListener('DOMContentLoaded', function () {
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('product_id');
@@ -24,7 +25,9 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('product-detail').src = `${serverUrl}/` + product.picture;
             document.querySelector('.h2').innerText = product.name;
             document.querySelector('#product_description').innerText = product.description;
-            document.querySelector('.h3').innerText = `$${product.price.toFixed(2)}`;
+            let price = product.discount > 0 ? `<span style="color:red !important; font-size:15px" > <del>${(formatter.format(product.price))}  </del> </span>  | <span style= "font-size:20px !important; font-weight:bold !important; color:green" > ${formatter.format(product.price - ((product.price * product.discount) / 100))}  </span> ` : `<span style="color:green" >${(formatter.format(product.price))}</span>`;
+            // alert(price);
+            document.querySelector('#product_price').innerHTML = `${price}`;
 
 
             const starsContainer = document.querySelector('.contain-stars');

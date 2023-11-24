@@ -1,4 +1,4 @@
-import { serverUrl } from "./config";
+import { serverUrl } from "./config.js";
 document.addEventListener('DOMContentLoaded', function () {
     const currentUrl = new URL(window.location.href);
 
