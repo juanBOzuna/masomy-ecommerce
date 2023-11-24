@@ -24,9 +24,11 @@ class SearchModal extends HTMLElement {
         let form = document.querySelector('#form-search');
         form.addEventListener('submit', function (event) {
             event.preventDefault();
+
             let q = document.querySelector('#inputModalSearch').value;
             window.location.href = `resultSearchs.html?q=${q}`;
         });
+
     }
 }
 

@@ -26,25 +26,7 @@
 
 <body>
     <!-- Start Top Nav -->
-    <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
-        <div class="container text-light">
-            <div class="w-100 d-flex justify-content-between">
-                <div>
-                    <i class="fa fa-envelope mx-2"></i>
-                    <a class="navbar-sm-brand text-light text-decoration-none"
-                        href="mailto:info@company.com">masomyoficial@gmail.com</a>
-                    <i class="fa fa-phone mx-2"></i>
-                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">+57
-                        3008866978</a>
-                </div>
-                <div>
-                    <a class="text-light"
-                        href="https://www.instagram.com/masomyoficial/?utm_source=ig_web_button_share_sheet&igshid=OGQ5ZDc2ODk2ZA=="
-                        target="_blank"><i class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <top-header-custom></top-header-custom>
     <!-- Close Top Nav -->
 
 
@@ -53,22 +35,8 @@
     <!-- Close Header -->
 
     <!-- Modal -->
-    <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="w-100 pt-1 mb-5 text-right">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="" method="get" class="modal-content modal-body border-0 p-0">
-                <div class="input-group mb-2">
-                    <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
-                    <button type="submit" class="input-group-text bg-success text-light">
-                        <i class="fa fa-fw fa-search text-white"></i>
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
+    <search-modal></search-modal>
+
     <section class="bg-success py-5">
         <div class="container">
             <div class="row align-items-center py-5">
@@ -186,6 +154,8 @@
     <script src="assets/js/templatemo.js"></script>
     <!-- <script src="assets/js/custom.js"></script> -->
     <script src="assets/js/components/HeaderCustom.js" type="module"></script>
+    <script src="assets/js/components/SearchModal.js" type="module"></script>
+    <script src="assets/js/components/TopHeader.js" type="module"></script>
     <script src="assets/js/components/FooterCustom.js"></script>
     <!-- End Script -->
 </body>
