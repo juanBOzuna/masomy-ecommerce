@@ -1,4 +1,4 @@
-import { serverUrl } from "./config";
+import { serverUrl } from "./config.js";
 
 var userSession = localStorage.getItem('userSession');
 
